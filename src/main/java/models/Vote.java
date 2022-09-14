@@ -1,17 +1,17 @@
 package models;
 
 import lombok.Data;
+import org.eclipse.persistence.annotations.UuidGenerator;
 
 import javax.persistence.*;
-import java.util.Set;
-import java.util.UUID;
 
 @Entity
+@UuidGenerator(name = "voteIdGenerator")
 @Data
 public class Vote {
     @Id
-    @GeneratedValue(generator = "uuid")
-    public UUID id;
+    @GeneratedValue(generator = "voteIdGenerator")
+    public String id;
 
     //Can be implemented further later
     enum Answer {
@@ -20,16 +20,10 @@ public class Vote {
 
     public Answer answer;
 
+    @ManyToOne
+    public Poll poll;
 
     @ManyToOne
-    public Set<Poll> polls;
-
-    @ManyToOne
-    public Set<User> user;
-
-
-
-
-
+    public VoteUser user;
 
 }
