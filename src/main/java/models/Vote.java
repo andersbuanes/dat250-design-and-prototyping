@@ -21,10 +21,10 @@ public class Vote {
     public Answer answer;
 
 
-    @OneToMany
+    @ManyToOne
     public Set<Poll> polls;
 
-    @OneToMany
+    @ManyToOne
     public Set<User> user;
 
 
