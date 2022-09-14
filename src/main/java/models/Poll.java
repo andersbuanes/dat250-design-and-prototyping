@@ -4,7 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -24,12 +24,13 @@ public class Poll {
     public boolean isClosed;
 
     @ManyToOne
+    @JoinColumn(name = "userId", referencedColumnName = "id")
     public User user;
 
     @OneToMany(mappedBy = "poll")
-    public List<Vote> votes;
+    public Set<Vote> votes;
 
     @OneToMany(mappedBy = "poll")
-    public List<IoTVotes> iotVotes;
+    public Set<IoTVotes> iotVotes;
 
 }
