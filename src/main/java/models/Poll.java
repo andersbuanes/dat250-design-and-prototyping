@@ -31,7 +31,7 @@ public class Poll {
     @OneToMany(mappedBy = "poll")
     public Set<Vote> votes;
 
-//    @OneToMany(mappedBy = "poll")
-//    public Set<IoTVotes> iotVotes;
+    @OneToMany(mappedBy = "poll")
+    public Set<IoTVotes> iotVotes;
 
 }

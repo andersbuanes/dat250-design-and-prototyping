@@ -6,8 +6,8 @@
         <class>models.Vote</class>
         <class>models.Poll</class>
         <class>models.VoteUser</class>
-<!--        <class>models.IoTVotes</class>-->
-<!--        <class>models.IoTVotingDevice</class>-->
+        <class>models.IoTVotes</class>
+        <class>models.IoTVotingDevice</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
             <property name="javax.persistence.jdbc.url"
