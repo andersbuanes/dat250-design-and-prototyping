@@ -15,13 +15,13 @@ import java.util.Set;
 public class IoTVotingDevice {
     @Id
     @GeneratedValue(generator = "iotDeviceIdGenerator")
-    public String id;
+    private String id;
 
-    public int pincode;
+    private int pincode;
 
-    public String name;
+    private String name;
 
     @OneToMany(mappedBy = "votingDevice")
-    public Set<IoTVotes> votes;
+    private Set<IoTVotes> votes;
 
 }

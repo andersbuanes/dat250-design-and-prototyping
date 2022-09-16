@@ -13,16 +13,38 @@ import java.util.Set;
 public class Poll {
     @Id
     @GeneratedValue(generator = "pollIdGenerator")
-    public String id;
+    private String id;
 
-    public int pincode;
-    public String question;
-    public String answerA;
-    public String answerB;
-    public boolean isPrivate;
-    public LocalDateTime stateDate;
-    public LocalDateTime endDate;
-    public boolean isClosed;
+    private int pincode;
+    private String question;
+    private String answerA;
+    private String answerB;
+    private boolean isPrivate;
+    private LocalDateTime stateDate;
+    private LocalDateTime endDate;
+    private boolean isClosed;
+
+    public Poll() {}
+
+    public Poll(int pincode,
+                String question,
+                String answerA,
+                String answerB,
+                boolean isPrivate,
+                LocalDateTime stateDate,
+                LocalDateTime endDate,
+                boolean isClosed,
+                VoteUser user) {
+        this.pincode = pincode;
+        this.question = question;
+        this.answerA = answerA;
+        this.answerB = answerB;
+        this.isPrivate = isPrivate;
+        this.stateDate = stateDate;
+        this.endDate = endDate;
+        this.isClosed = isClosed;
+        this.user = user;
+    }
 
     @ManyToOne
     @JoinColumn(name = "userId", referencedColumnName = "id")

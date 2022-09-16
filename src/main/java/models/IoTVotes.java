@@ -15,18 +15,18 @@ public class IoTVotes {
 
     @Id
     @GeneratedValue(generator = "iotVotesIdGenerator")
-    public String id;
+    private String id;
 
     @Id
-    public int pincode;
+    private int pincode;
 
-    public int answerA;
-    public int answerB;
-
-    @ManyToOne
-    public IoTVotingDevice votingDevice;
+    private int answerA;
+    private int answerB;
 
     @ManyToOne
-    public Poll poll;
+    private IoTVotingDevice votingDevice;
+
+    @ManyToOne
+    private Poll poll;
 
 }

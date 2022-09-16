@@ -9,15 +9,15 @@ import java.util.Set;
 @Data
 public class VoteUser {
     @Id
-    public String id;
+    private String id;
 
-    public String name;
-    public boolean isAdmin;
-
-    @OneToMany(mappedBy = "user")
-    public Set<Vote> votes;
+    private String name;
+    private boolean isAdmin;
 
     @OneToMany(mappedBy = "user")
-    public Set<Poll> polls;
+    private Set<Vote> votes;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Poll> polls;
 
 }

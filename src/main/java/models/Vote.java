@@ -11,19 +11,19 @@ import javax.persistence.*;
 public class Vote {
     @Id
     @GeneratedValue(generator = "voteIdGenerator")
-    public String id;
+    private String id;
 
     //Can be implemented further later
     enum Answer {
         Yes, NO
     }
 
-    public Answer answer;
+    private Answer answer;
 
     @ManyToOne
-    public Poll poll;
+    private Poll poll;
 
     @ManyToOne
-    public VoteUser user;
+    private VoteUser user;
 
 }
