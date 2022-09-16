@@ -9,12 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-@UuidGenerator(name = "pollIdGenerator")
+@UuidGenerator(name = "iotVotesIdGenerator")
 @Data
 public class IoTVotes {
 
     @Id
-    @GeneratedValue(generator = "uuid")
+    @GeneratedValue(generator = "iotVotesIdGenerator")
     public String id;
 
     @Id
@@ -26,5 +26,7 @@ public class IoTVotes {
     @ManyToOne
     public IoTVotingDevice votingDevice;
 
+    @ManyToOne
+    public Poll poll;
 
 }

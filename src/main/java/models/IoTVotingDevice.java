@@ -10,11 +10,11 @@ import javax.persistence.OneToMany;
 import java.util.Set;
 
 @Entity
-@UuidGenerator(name = "pollIdGenerator")
+@UuidGenerator(name = "iotDeviceIdGenerator")
 @Data
 public class IoTVotingDevice {
     @Id
-    @GeneratedValue(generator = "uuid")
+    @GeneratedValue(generator = "iotDeviceIdGenerator")
     public String id;
 
     public int pincode;
