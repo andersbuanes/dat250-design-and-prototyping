@@ -24,6 +24,6 @@ public class Vote {
     private Poll poll;
 
     @ManyToOne
-    private VoteUser user;
+    private Account account;
 
 }

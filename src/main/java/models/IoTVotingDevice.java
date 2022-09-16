@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -22,6 +23,6 @@ public class IoTVotingDevice {
     private String name;
 
     @OneToMany(mappedBy = "votingDevice")
-    private Set<IoTVotes> votes;
+    private Set<IoTVotes> votes = new HashSet<>();
 
 }

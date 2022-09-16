@@ -5,6 +5,7 @@ import org.eclipse.persistence.annotations.UuidGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -34,7 +35,7 @@ public class Poll {
                 LocalDateTime stateDate,
                 LocalDateTime endDate,
                 boolean isClosed,
-                VoteUser user) {
+                Account account) {
         this.pincode = pincode;
         this.question = question;
         this.answerA = answerA;
@@ -43,17 +44,17 @@ public class Poll {
         this.stateDate = stateDate;
         this.endDate = endDate;
         this.isClosed = isClosed;
-        this.user = user;
+        this.account = account;
     }
 
     @ManyToOne
-    @JoinColumn(name = "userId", referencedColumnName = "id")
-    public VoteUser user;
+    @JoinColumn(name = "accountId", referencedColumnName = "id")
+    public Account account;
 
     @OneToMany(mappedBy = "poll")
-    public Set<Vote> votes;
+    public Set<Vote> votes = new HashSet<>();
 
     @OneToMany(mappedBy = "poll")
-    public Set<IoTVotes> iotVotes;
+    public Set<IoTVotes> iotVotes = new HashSet<>();
 
 }

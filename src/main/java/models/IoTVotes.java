@@ -17,7 +17,6 @@ public class IoTVotes {
     @GeneratedValue(generator = "iotVotesIdGenerator")
     private String id;
 
-    @Id
     private int pincode;
 
     private int answerA;
