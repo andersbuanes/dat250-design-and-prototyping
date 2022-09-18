@@ -1,6 +1,7 @@
-import models.IoTVotingDevice;
-import models.Poll;
-import models.Account;
+import dao.AccountDAO;
+import dao.IoTVotingDeviceDAO;
+import dao.PollDAO;
+import models.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -24,36 +25,65 @@ public class Main {
 
     private static void addSampleData(EntityManager em) {
         // User
-        Account user1 = new Account();
-        user1.setId(UUID.randomUUID().toString());
-        user1.setName("Lars");
-        user1.setAdmin(false);
+        AccountDAO accountDAO = new AccountDAO(em);
+        Account account1 = new Account();
+        account1.setId(UUID.randomUUID().toString());
+        account1.setName("Lars");
+        account1.setAdmin(false);
+        accountDAO.createAccount(account1);
 
         // Poll
-        Poll poll1 = new Poll(1111, "Pizza eller taco?", "Pizza", "Taco", false, LocalDateTime.now(), LocalDateTime.now().plusDays(7), false, user1);
-        user1.getPolls().add(poll1);
+        Poll poll1 = new Poll(1111, "Pizza eller taco?", "Pizza", "Taco", false, LocalDateTime.now(), LocalDateTime.now().plusDays(7), false, account1);
+        PollDAO pollDAO = new PollDAO(em);
+        pollDAO.createPoll(poll1);
+
+        // Account vote
+        Vote vote1 = new Vote();
+        vote1.setAccount(account1);
+        vote1.setPoll(poll1);
+        vote1.setAnswer(Vote.Answer.ANSWER_A);
+
+        poll1.getVotes().add(vote1);
+        pollDAO.updatePoll(poll1);
 
         // IoT Device
         IoTVotingDevice iot1 = new IoTVotingDevice();
         iot1.setName("device1");
         iot1.setPincode(1234);
+        IoTVotingDeviceDAO ioTVotingDeviceDAO = new IoTVotingDeviceDAO(em);
+        ioTVotingDeviceDAO.createIoTVotingDevice(iot1);
 
-        em.getTransaction().begin();
-        em.persist(iot1);
-        em.persist(user1);
-        em.persist(poll1);
-        em.getTransaction().commit();
+        // IoT votes
+        IoTVotes iotVotes1 = new IoTVotes();
+        iotVotes1.setAnswerA(10);
+        iotVotes1.setAnswerB(8);
+        iotVotes1.setVotingDevice(iot1);
+        iotVotes1.setPoll(poll1);
+        iot1.getVotes().add(iotVotes1);
+
+        IoTVotingDeviceDAO ioTVotingDeviceDAO1 = new IoTVotingDeviceDAO(em);
+        ioTVotingDeviceDAO1.updateIoTVotingDevice(iot1);
+
     }
 
     private static void readAndPrintData(EntityManager em) {
-        List<Account> accounts = em.createQuery("select a from Account a", Account.class).getResultList();
-        for (Account a : accounts) {
-            for (Poll p : a.getPolls()) {
-                System.out.println(p.getQuestion());
+        PollDAO pollDAO = new PollDAO(em);
+        List<Poll> polls = pollDAO.getAllPolls();
+
+        for (Poll p : polls) {
+            long answerCountA = p.getVotes().stream()
+                    .filter(v -> v.getAnswer() == Vote.Answer.ANSWER_A).count();
+            long answerCountB = p.getVotes().stream()
+                    .filter(v -> v.getAnswer() == Vote.Answer.ANSWER_B).count();
+            for (IoTVotes iotVote : p.getIotVotes()) {
+                answerCountA += iotVote.getAnswerA();
+                answerCountB += iotVote.getAnswerB();
             }
+
+            System.out.println("Poll question: " + p.getQuestion());
+            System.out.println("Poll answer A (" + p.getAnswerA() + "): " + answerCountA);
+            System.out.println("Poll answer B (" + p.getAnswerB() + "): " + answerCountB);
         }
-
-
     }
 
 }

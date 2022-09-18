@@ -1,6 +1,5 @@
 package models;
 
-import lombok.Data;
 import org.eclipse.persistence.annotations.UuidGenerator;
 
 import javax.persistence.Entity;
@@ -10,14 +9,11 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @UuidGenerator(name = "iotVotesIdGenerator")
-@Data
 public class IoTVotes {
 
     @Id
     @GeneratedValue(generator = "iotVotesIdGenerator")
     private String id;
-
-    private int pincode;
 
     private int answerA;
     private int answerB;
@@ -28,4 +24,43 @@ public class IoTVotes {
     @ManyToOne
     private Poll poll;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getAnswerA() {
+        return answerA;
+    }
+
+    public void setAnswerA(int answerA) {
+        this.answerA = answerA;
+    }
+
+    public int getAnswerB() {
+        return answerB;
+    }
+
+    public void setAnswerB(int answerB) {
+        this.answerB = answerB;
+    }
+
+    public IoTVotingDevice getVotingDevice() {
+        return votingDevice;
+    }
+
+    public void setVotingDevice(IoTVotingDevice votingDevice) {
+        this.votingDevice = votingDevice;
+    }
+
+    public Poll getPoll() {
+        return poll;
+    }
+
+    public void setPoll(Poll poll) {
+        this.poll = poll;
+    }
 }
